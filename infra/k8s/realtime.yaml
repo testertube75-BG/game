@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realtime
+  namespace: bcgs
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      app: realtime
+  template:
+    metadata:
+      labels:
+        app: realtime
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: realtime
+          image: ghcr.io/bcgs/realtime:latest
+          ports:
+            - containerPort: 2567
+          envFrom:
+            - secretRef:
+                name: bcgs-secrets
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 2567
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+            limits:
+              cpu: "4"
+              memory: "4Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: realtime
+  namespace: bcgs
+spec:
+  selector:
+    app: realtime
+  sessionAffinity: ClientIP
+  ports:
+    - port: 80
+      targetPort: 2567
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: realtime
+  namespace: bcgs
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: realtime
+  minReplicas: 12
+  maxReplicas: 1000
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 55

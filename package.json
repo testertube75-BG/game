@@ -1,0 +1,23 @@
+{
+  "name": "bcgs-gaming-platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "BCGS Gaming Platform monorepo for web, mobile, realtime multiplayer, backend services, smart contracts, and infrastructure.",
+  "packageManager": "pnpm@9.12.3",
+  "scripts": {
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "dev:api": "pnpm --filter @bcgs/api-gateway start:dev",
+    "dev:realtime": "pnpm --filter @bcgs/realtime start:dev",
+    "dev:web": "pnpm --filter @bcgs/web dev",
+    "dev:telegram": "pnpm --filter @bcgs/telegram dev",
+    "contracts:test": "pnpm --filter @bcgs/contracts test"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.6.3",
+    "eslint": "^9.14.0",
+    "prettier": "^3.3.3"
+  }
+}

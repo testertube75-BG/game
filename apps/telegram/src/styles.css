@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  background: var(--tg-theme-bg-color, #f8fafc);
+  color: var(--tg-theme-text-color, #111827);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.shell {
+  min-height: 100vh;
+  padding: 14px;
+}
+
+.topbar,
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button {
+  height: 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  font-weight: 700;
+}
+
+.panel {
+  margin-top: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+}
+
+.game {
+  width: 100%;
+}
+
+.tabs {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  gap: 8px;
+}
+
+.tabs button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
